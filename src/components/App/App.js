@@ -1,5 +1,6 @@
 import './App.css';
 
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import React, { useState } from 'react';
 
 import BookDetails from '../BooksList/BookDetails/BookDetails';
@@ -11,12 +12,16 @@ function App() {
   const [selectedBook, setSelectedBook] = useState(null);
   
 	return (
-		<div className="app">
-			<SearchBar setSearch={setSearch} />
-			<BooksList search={search} onSelectBook={setSelectedBook} />
+		<Router>
+			<div className="app">
+				<SearchBar setSearch={setSearch} />
 
-			{selectedBook && <BookDetails bookId={selectedBook} />}
-		</div>
+				<Routes>
+					<Route path="/" element={<BooksList search={search} />}></Route>
+					<Route path="/book/:bookId" element={<BookDetails />}></Route>
+				</Routes>
+			</div>
+		</Router>
 	);
 }
 
