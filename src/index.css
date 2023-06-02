@@ -6,3 +6,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body[data-theme="light"] {
+  background-color: #fff;
+  color: #000;
+}
+
+body[data-theme="dark"] {
+  background-color: #000;
+  color: #fff;
+}
