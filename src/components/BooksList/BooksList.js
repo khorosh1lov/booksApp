@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import { SearchContext } from '../../context';
 import { getBooksBySearchTerm } from '../../api/booksApi';
 
-function BooksList({ search }) {
+function BooksList() {
+	const { search } = useContext(SearchContext); 
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -22,17 +24,19 @@ function BooksList({ search }) {
 
 	return (
 		<div className="books">
-			<h1>Books</h1>
+			<div className="container">
+				<h1>Books</h1>
 
-			<ul>
-				{books.map((book, index) => (
-					<li key={index}>
-						<Link to={`/book/${book.id}`} title={book.volumeInfo.title}>
-							{book.volumeInfo.title}
-						</Link>
-					</li>
-				))}
-			</ul>
+				<ul>
+					{books.map((book, index) => (
+						<li key={index}>
+							<Link to={`/book/${book.id}`} title={book.volumeInfo.title}>
+								{book.volumeInfo.title}
+							</Link>
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	);
 }

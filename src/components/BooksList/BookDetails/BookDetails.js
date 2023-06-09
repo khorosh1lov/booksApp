@@ -13,10 +13,10 @@ function BookDetails() {
 		getBookById(bookId)
 			.then((response) => {
 				setBook(response.data);
-				setError(false);
 			})
 			.catch((error) => {
 				console.error(error);
+				setBook({});
 				setError(true);
 			});
 	}, [bookId]);
@@ -31,10 +31,18 @@ function BookDetails() {
 
 	return (
 		<div className="book">
-			<h1>{book.volumeInfo.title ? book.volumeInfo.title : 'No title' }</h1>
-			<h2>{book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'No authors'}</h2>
-			<div>{book.volumeInfo.description ? parse(book.volumeInfo.description) : 'No description available'}</div>
-			{book.volumeInfo.imageLinks && <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />}
+			<div className="container">
+				<h1>{book.volumeInfo.title ? book.volumeInfo.title : 'No title'}</h1>
+				<h2>{book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'No authors'}</h2>
+				<div>{book.volumeInfo.description ? parse(book.volumeInfo.description) : 'No description available'}</div>
+				{book.volumeInfo.imageLinks && <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />}
+
+				{book.volumeInfo.previewLink && (
+					<a href={book.volumeInfo.previewLink} target="_blank" rel="noreferrer">
+						Preview Book
+					</a>
+				)}
+			</div>
 		</div>
 	);
 }
