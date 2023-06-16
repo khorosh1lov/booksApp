@@ -7,6 +7,7 @@ import { SearchContext, ThemeContext } from '../../context';
 import About from '../About/About';
 import BookDetails from '../BooksList/BookDetails/BookDetails';
 import BooksList from '../BooksList/BooksList';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Header from '../Header/Header';
 import NotFound from '../NotFound/NotFound';
 
@@ -25,6 +26,7 @@ function App() {
 				<Router>
 					<div className="app">
 						<Header setSearch={setSearch} />
+						<Breadcrumbs />
 
 						<Routes>
 							<Route path="/" element={<BooksList />}></Route>
