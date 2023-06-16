@@ -11,13 +11,14 @@ function Breadcrumbs() {
 
             {pathnames.map((value, index) => {
                 const isLast = index === pathnames.length - 1;
+                const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
                 return isLast ? (
-					<span key={location.pathname}> | {value} </span>
+					<span key={to}> | {value} </span>
 				) : (
 					<>
 						<span> | </span>
-						<Link key={location.pathname} to={location.pathname}>
+						<Link key={to} to={to}>
 							{value}
 						</Link>
 					</>
