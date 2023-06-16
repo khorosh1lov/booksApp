@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { getBookById } from '../../../api/booksApi';
 import parse from 'html-react-parser';
 import { useParams } from 'react-router-dom';
+import withClickLogger from '../../HOC/withClickLogger';
 
-function BookDetails() {
+function BookDetails({ onClick }) {
 	const { bookId } = useParams();
 	const [book, setBook] = useState(null);
 	const [error, setError] = useState(false);
@@ -30,7 +31,7 @@ function BookDetails() {
 	}
 
 	return (
-		<div className="book">
+		<div className="book" onClick={() => onClick(bookId)}>
 			<div className="container">
 				<h1>{book.volumeInfo.title ? book.volumeInfo.title : 'No title'}</h1>
 				<h2>{book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'No authors'}</h2>
@@ -47,4 +48,4 @@ function BookDetails() {
 	);
 }
 
-export default BookDetails;
+export default withClickLogger(BookDetails);
