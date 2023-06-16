@@ -1,7 +1,7 @@
-import './App.css';
+import './App.scss';
 
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SearchContext, ThemeContext } from '../../context';
 
 import About from '../About/About';
@@ -10,6 +10,31 @@ import BooksList from '../BooksList/BooksList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Header from '../Header/Header';
 import NotFound from '../NotFound/NotFound';
+import { useLocation } from 'react-router-dom';
+
+function RoutesWithHistory() {
+	const location = useLocation();
+	const previousLocation = useRef(location);
+
+	useEffect(() => {
+		if (location !== previousLocation.current) {
+			previousLocation.current = location;
+		}
+	}, [location]);
+
+	return (
+		<Routes>
+			<Route path="/" element={<BooksList />}></Route>
+			<Route path="/book" element={<Navigate to="/" />} />
+			<Route path="/book/:bookId" element={<BookDetails />}></Route>
+
+			<Route path="/about" element={<About />} />
+
+			<Route path="*" element={<Navigate to="/404" />} />
+			<Route path="/404" element={<NotFound />} />
+		</Routes>
+	);
+}
 
 function App() {
  	const [search, setSearch] = useState('');
@@ -27,17 +52,7 @@ function App() {
 					<div className="app">
 						<Header setSearch={setSearch} />
 						<Breadcrumbs />
-
-						<Routes>
-							<Route path="/" element={<BooksList />}></Route>
-							<Route path="/book" element={<Navigate to="/" />} />
-							<Route path="/book/:bookId" element={<BookDetails />}></Route>
-
-							<Route path="/about" element={<About />} />
-
-							<Route path="*" element={<Navigate to="/404" />} />
-							<Route path="/404" element={<NotFound />} />
-						</Routes>
+						<RoutesWithHistory />
 					</div>
 				</Router>
 			</SearchContext.Provider>

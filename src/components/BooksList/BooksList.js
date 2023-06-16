@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import FilterBar from '../FilterBar/FilterBar';
 import { Link } from 'react-router-dom';
@@ -11,9 +11,9 @@ function BooksList() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const booksPerPage = 10;
 
-	const handlePageChange = (pageNumber) => {
+	const handlePageChange = useCallback((pageNumber) => {
 		setCurrentPage(pageNumber);
-	}
+	}, []);
 
     useEffect(() => {
 		if (search) {
