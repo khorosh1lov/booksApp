@@ -13,13 +13,19 @@ function Breadcrumbs() {
                 const isLast = index === pathnames.length - 1;
                 const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
+                let breadcrumb = value;
+
+                if (isLast && value.includes('-')) {
+                    breadcrumb = value.split('-').slice(1).join(' ');
+                }
+
                 return isLast ? (
-					<span key={to}> | {value} </span>
+					<span key={to}> | {breadcrumb} </span>
 				) : (
 					<>
 						<span> | </span>
 						<Link key={to} to={to}>
-							{value}
+							{breadcrumb}
 						</Link>
 					</>
 				);
