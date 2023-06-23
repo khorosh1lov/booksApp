@@ -8,6 +8,7 @@ import About from '../About/About';
 import BookDetails from '../BooksList/BookDetails/BookDetails';
 import BooksList from '../BooksList/BooksList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import ContactUs from '../ContactUs/ContactUs';
 import Header from '../Header/Header';
 import NotFound from '../NotFound/NotFound';
 import { useLocation } from 'react-router-dom';
@@ -29,6 +30,7 @@ function RoutesWithHistory() {
 			<Route path="/book/:slug" element={<BookDetails />}></Route>
 
 			<Route path="/about" element={<About />} />
+			<Route path="/contact-us" element={<ContactUs />} />
 
 			<Route path="*" element={<Navigate to="/404" />} />
 			<Route path="/404" element={<NotFound />} />
